@@ -2,6 +2,7 @@ import { Controller, Get, Res, HttpStatus, Post, Body, Param, NotFoundException,
 import { BlogService } from './blog.service';
 import { Http2ServerRequest } from 'http2';
 import { CreatePostDTO } from './dto/create-post.dto';
+import { ValidateObjectId } from 'src/shared/pipes/validate-object-id.pipes';
 
 @Controller('blog')
 export class BlogController {
@@ -21,7 +22,7 @@ export class BlogController {
   @Get('post/:postID')
   async getPostByID(
     @Res() res,
-    @Param('postID') postID,
+    @Param('postID', new ValidateObjectId()) postID,
   ) {
     const post = await this.blogService.getPost(postID);
     if (!post) throw new NotFoundException('Post does not exist');
@@ -43,7 +44,7 @@ export class BlogController {
   @Put('edit')
   async editPost(
     @Res() res,
-    @Query('postID') postID,
+    @Query('postID', new ValidateObjectId()) postID,
     @Body() createPostDTO: CreatePostDTO
   ) {
     const editedPost = this.blogService.editPost(postID, createPostDTO);
@@ -57,7 +58,7 @@ export class BlogController {
   @Delete('delete')
   async deletePost(
     @Res() res,
-    @Query('postID') postID
+    @Query('postID', new ValidateObjectId()) postID
   ) {
     const deletedPost = await this.blogService.deletePost(postID);
     return res.status(HttpStatus.OK).json({
