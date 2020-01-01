@@ -1,4 +1,4 @@
-import { Controller, Get, Res, HttpStatus, Post, Body } from '@nestjs/common';
+import { Controller, Get, Res, HttpStatus, Post, Body, Param, NotFoundException, Put, Query, Delete } from '@nestjs/common';
 import { BlogService } from './blog.service';
 import { Http2ServerRequest } from 'http2';
 import { CreatePostDTO } from './dto/create-post.dto';
@@ -12,13 +12,23 @@ export class BlogController {
 
   @Get('posts')
   async getPosts(
-    @Res() res
+    @Res() res,
   ) {
     const posts = await this.blogService.getPosts()
     return res.status(HttpStatus.OK).json(posts)
   }
 
-  @Post('/post')
+  @Get('post/:postID')
+  async getPostByID(
+    @Res() res,
+    @Param('postID') postID,
+  ) {
+    const post = await this.blogService.getPost(postID);
+    if (!post) throw new NotFoundException('Post does not exist');
+    return res.status(HttpStatus.OK).json(post);
+  }
+
+  @Post('post')
   async addPost(
     @Res() res,
     @Body() createPostDTO: CreatePostDTO
@@ -28,6 +38,32 @@ export class BlogController {
           message: "Post has been submitted successfully!",
           post: newPost
       })
+  }
+
+  @Put('edit')
+  async editPost(
+    @Res() res,
+    @Query('postID') postID,
+    @Body() createPostDTO: CreatePostDTO
+  ) {
+    const editedPost = this.blogService.editPost(postID, createPostDTO);
+    if (!editedPost) throw new NotFoundException('Post does not exist')
+    return res.status(HttpStatus.OK).json({
+      message: 'Post has been successfully updated',
+      post: editedPost
+    });
+  }
+
+  @Delete('delete')
+  async deletePost(
+    @Res() res,
+    @Query('postID') postID
+  ) {
+    const deletedPost = await this.blogService.deletePost(postID);
+    return res.status(HttpStatus.OK).json({
+      message: 'Post has been deleted!',
+      post: deletedPost
+    });
   }
 
 }

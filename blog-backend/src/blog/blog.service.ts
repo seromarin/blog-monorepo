@@ -11,14 +11,14 @@ export class BlogService {
     @InjectModel('Post') private readonly postModel: Model<Post>
   ) {}
 
-  async getPosts(): Promise<Post[]> {
-    const post = await this.postModel.find().exec();
-    return post;
-  }
+  getPosts = async (): Promise<Post[]> => await this.postModel.find().exec();
 
-  async addPost(createPostDTO: CreatePostDTO): Promise<Post> {
-    const newPost = await this.postModel(createPostDTO);
-    return newPost.save();
-  }
+  getPost = async (postID: number): Promise<Post> => await this.postModel.findById(postID).exec();
+
+  addPost = async (createPostDTO: CreatePostDTO): Promise<Post> => await new this.postModel(createPostDTO).save();
+
+  editPost = async (postID, createPostDTO: CreatePostDTO): Promise<Post>  => await this.postModel.findByIdAndUpdate(postID, createPostDTO, { new: true })
+
+  deletePost = async (postID): Promise<any> => await this.postModel.findByIdAndRemove(postID).exec();
 
 }

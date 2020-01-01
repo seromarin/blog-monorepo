@@ -10,7 +10,10 @@ import { BlogModule } from './blog/blog.module';
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@blog-cluster-xmwwh.gcp.mongodb.net/test?retryWrites=true&w=majority`,
-      { useNewUrlParser: true }
+      { 
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+      },
     ),
     BlogModule
   ],
