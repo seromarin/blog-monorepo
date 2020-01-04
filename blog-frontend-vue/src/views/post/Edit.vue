@@ -107,7 +107,7 @@ export default class Edit extends Vue {
       .get(`${server.baseURL}/blog/post/${this.id}`)
       .then(data => (this.post = data.data));
   }
-  
+
   navigate() {
     router.go(-1);
   }

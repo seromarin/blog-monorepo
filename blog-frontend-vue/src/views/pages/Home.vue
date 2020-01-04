@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <b-button>Click Me Please!</b-button>
+    <Card />
     <!-- <p>{{ allPost }}</p> -->
     <p v-if="loading">Loading...</p>
     <div v-else>
@@ -46,8 +48,13 @@ import axios from "axios";
 import { server } from "@/utils/helpers";
 import { Component } from "vue-property-decorator";
 
+import Card from "@/components/Card.vue";
+
 @Component({
-  name: "home"
+  name: "home",
+  components: {
+    Card
+  }
 })
 export default class Home extends Vue {
   titlePage = "El mejor blog del mundo";
