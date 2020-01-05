@@ -1,6 +1,5 @@
 import { Controller, Get, Res, HttpStatus, Post, Body, Param, NotFoundException, Put, Query, Delete } from '@nestjs/common';
 import { BlogService } from './blog.service';
-import { Http2ServerRequest } from 'http2';
 import { CreatePostDTO } from './dto/create-post.dto';
 import { ValidateObjectId } from 'src/shared/pipes/validate-object-id.pipes';
 

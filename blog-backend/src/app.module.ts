@@ -9,6 +9,9 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    BlogModule,
+    AuthModule,
+    UsersModule,
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@blog-cluster-xmwwh.gcp.mongodb.net/test?retryWrites=true&w=majority`,
@@ -16,10 +19,7 @@ import { UsersModule } from './users/users.module';
         useNewUrlParser: true,
         useUnifiedTopology: true
       },
-    ),
-    BlogModule,
-    AuthModule,
-    UsersModule
+    ),   
   ],
   controllers: [AppController],
   providers: [AppService],
