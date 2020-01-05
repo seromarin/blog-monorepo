@@ -4,18 +4,28 @@
       <h1 class="header__title title">Register</h1>
       <h2 class="subtitle">Create new user</h2>
     </div>
-    <form action="">
+    <form @submit.prevent="registerUser">
       <div class="field">
         <label class="label">Name</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Text input" />
+          <input
+            v-model="name"
+            class="input"
+            type="text"
+            placeholder="Text input"
+          />
         </div>
       </div>
 
       <div class="field">
         <label class="label">Username</label>
         <div class="control has-icons-left has-icons-right">
-          <input class="input" type="text" placeholder="Text input" />
+          <input
+            v-model="username"
+            class="input"
+            type="text"
+            placeholder="Text input"
+          />
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -26,7 +36,12 @@
       <div class="field">
         <label class="label">Password</label>
         <div class="control has-icons-left has-icons-right">
-          <input class="input" type="password" placeholder="password" />
+          <input
+            v-model="password"
+            class="input"
+            type="password"
+            placeholder="password"
+          />
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -37,7 +52,12 @@
       <div class="field">
         <label class="label">Email</label>
         <div class="control has-icons-left has-icons-right">
-          <input class="input" type="email" placeholder="Email input" />
+          <input
+            v-model="email"
+            class="input"
+            type="email"
+            placeholder="Email input"
+          />
           <span class="icon is-small is-left">
             <i class="fas fa-envelope"></i>
           </span>
@@ -56,10 +76,12 @@
 
       <div class="field is-grouped">
         <div class="control">
-          <button class="button is-link">Submit</button>
+          <button class="button is-link" type="submit">Submit</button>
         </div>
         <div class="control">
-          <button class="button is-link is-light">Cancel</button>
+          <button class="button is-link is-light">
+            Cancel
+          </button>
         </div>
       </div>
     </form>
@@ -69,7 +91,7 @@
 <script lang="ts">
 import Vue from "vue";
 import axios from "axios";
-import registerUser from "@/utils/interfaces/registerUser.interface";
+import { registerUser } from "@/utils/interfaces/registerUser.interface";
 import { Component } from "vue-property-decorator";
 import { server } from "@/utils/helpers";
 import router from "@/router";
@@ -89,9 +111,22 @@ export default class Register extends Vue {
     this.register_date = new Date();
   }
 
-  private registerNewUser(postData: registerUser) {
+  registerUser() {
+    const postData: registerUser = {
+      name: this.name,
+      username: this.username,
+      password: this.password,
+      email: this.email,
+      register_date: this.register_date
+    };
+
+    this.submitToServer(postData);
+  }
+
+  private submitToServer(postData: registerUser) {
     axios.post(`${server.baseURL}/auth/register`, postData).then(data => {
-      // router.push({ name: "home" });
+      console.log("esta es la respuesta del backend", data);
+      router.push({ name: "home" });
     });
   }
 }
