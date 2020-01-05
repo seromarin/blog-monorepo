@@ -1,13 +1,21 @@
 <template>
   <div class="home">
-    <b-button>Click Me Please!</b-button>
-    <Card />
-    <!-- <p>{{ allPost }}</p> -->
     <p v-if="loading">Loading...</p>
     <div v-else>
       <p v-if="isPosted">No se encontraron datos</p>
       <div v-else>
-        <h1 class="home__title">{{ titlePage }}</h1>
+        <section class="hero is-primary">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                {{ titlePage }}
+              </h1>
+              <h2 class="subtitle">
+                Powered by <a href="http://vuejs.org" target="blank">Vue</a>
+              </h2>
+            </div>
+          </div>
+        </section>
         <div class="home__postList">
           <div
             class="home__postList__item"
@@ -93,6 +101,10 @@ h5,
 h6 {
   margin: 0;
   padding: 0;
+}
+
+.hero {
+  text-align: center;
 }
 
 .home {
