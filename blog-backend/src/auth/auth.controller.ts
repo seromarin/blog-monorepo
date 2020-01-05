@@ -10,19 +10,17 @@ export class AuthController {
     private readonly authService: AuthService
   ) {}
 
-  // @UseGuards(AuthGuard('local'))
+  @UseGuards(AuthGuard('local'))
   @Post('login')
   async login(@Request() req) {
-    return 'Loggiando'
-    // return this.authService.login(req.user);
+    return this.authService.login(req.user);
   }
 
   @Post('register')
   async register(
     @Request() req,
-    @Body() createuserDTO: CreateUserDTO
+    @Body() createuserDTO: CreateUserDTO,
   ) {
-    return 'Va la madre'
-    // return this.authService.register(req.user);
+    return this.authService.register(createuserDTO);
   }
 }
