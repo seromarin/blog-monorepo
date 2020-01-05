@@ -17,11 +17,4 @@ export class UsersService {
 
   addNewUser = async (createUserDTO: CreateUserDTO): Promise<NewUser> => await new this.userModel(createUserDTO).save();
 
-  // async findOneUserByUsername = (username: string): Promise<any | undefined> => this.user.find(user => user.username === username);
-
-
-  // getPost = async (postID: number): Promise<Post> => await this.postModel.findById(postID).exec();
-
-  // addPost = async (createPostDTO: CreatePostDTO): Promise<Post> => await new this.postModel(createPostDTO).save();
-
 }
