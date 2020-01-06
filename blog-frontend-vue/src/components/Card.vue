@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card card-content">
     <div class="card-image">
       <figure class="image is-4by3">
         <img
@@ -9,30 +9,27 @@
       </figure>
     </div>
     <div class="card-content">
-      <div class="media">
-        <div class="media-left">
-          <figure class="image is-48x48">
-            <img
-              src="https://bulma.io/images/placeholders/96x96.png"
-              alt="Placeholder image"
-            />
-          </figure>
-        </div>
-        <div class="media-content">
-          <p class="title is-4">John Smith</p>
-          <p class="subtitle is-6">@johnsmith</p>
-        </div>
+      <h2>
+        <a class="home__postList__item--link" href="#">{{ post.title }}</a>
+      </h2>
+      <h3>{{ post.description }}</h3>
+      <div>
+        <p class="home__postList__item--body"></p>
       </div>
-
-      <div class="content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-        iaculis mauris.
-        <a>@bulmaio</a>.
-        <a href="#">#css</a>
-        <a href="#">#responsive</a>
-        <br />
-        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+      <br />
+      <div class="home__postList__item--author">
+        <h4>Author:</h4>
+        <p>{{ post.author }}</p>
       </div>
+      
+    </div>
+    <div class="content body-content">
+      <p>{{ post.body }}</p>
+      <router-link
+        :to="{ name: 'edit', params: { id: post._id } }"
+        class="button"
+        >Edit Post
+      </router-link>
     </div>
   </div>
 </template>
@@ -40,7 +37,16 @@
 <script lang="ts">
 import Vue from "vue";
 import { Prop, Component } from "vue-property-decorator";
+import blogPost from "../utils/interfaces/blogPost.interface";
 
 @Component
-export default class Card extends Vue {}
+export default class Card extends Vue {
+  @Prop({ default: {}}) post: any;
+}
 </script>
+
+<style lang="scss" scoped>
+.body-content {
+  padding: 5px 15px;
+}
+</style>

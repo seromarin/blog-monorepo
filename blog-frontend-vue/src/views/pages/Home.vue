@@ -22,25 +22,7 @@
             v-for="post in allPost"
             :key="post.id"
           >
-            <h2>
-              <a class="home__postList__item--link" href="#">{{
-                post.title
-              }}</a>
-            </h2>
-            <h3>{{ post.description }}</h3>
-            <div>
-              <p class="home__postList__item--body">{{ post.body }}</p>
-            </div>
-            <br />
-            <div class="home__postList__item--author">
-              <h4>Author:</h4>
-              <p>{{ post.author }}</p>
-            </div>
-            <router-link
-              :to="{ name: 'edit', params: { id: post._id } }"
-              class="btn btn-sm btn-outline-secondary"
-              >Edit Post
-            </router-link>
+            <Card :post="post" />
           </div>
         </div>
       </div>
