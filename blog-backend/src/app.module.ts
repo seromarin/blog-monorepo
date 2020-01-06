@@ -13,13 +13,10 @@ import { UsersModule } from './users/users.module';
     AuthModule,
     UsersModule,
     ConfigModule.forRoot(),
-    MongooseModule.forRoot(
-      `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@blog-cluster-xmwwh.gcp.mongodb.net/test?retryWrites=true&w=majority`,
-      { 
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      },
-    ),   
+    MongooseModule.forRoot(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
